@@ -33,8 +33,6 @@ function Confirm-Install($installName, $packages) {
 Confirm-Install "Internet Browser" @("googlechrome","firefox","opera")
 Confirm-Install "Text editor" @("notepadplusplus.install","vscode")
 
-$installCmd = '"' + ($installPackages -join '","') + '"'
-
 #download boxstarter
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://boxstarter.org/bootstrapper.ps1'))
 #install it
@@ -55,4 +53,7 @@ Enable-RemoteDesktop
 #install this outside boxstarter since it doesn't handle the vs packages
 choco install visualstudio2022professional -y --package-parameters "--add Microsoft.VisualStudio.Workload.NativeDesktop Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core Microsoft.VisualStudio.Component.Windows10SDK.19041 Microsoft.VisualStudio.Component.VC.v141.x86.x64 Microsoft.VisualStudio.Component.VC.Tools.x86.x64 Microsoft.VisualStudio.Component.VC.Llvm.Clang"
 
-Install-BoxstarterPackage -PackageName $installCmd -DisableReboots
+Foreach ($p in $installPackages)
+{
+    choco install $p -y
+}
