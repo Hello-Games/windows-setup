@@ -15,7 +15,7 @@ $installPackages = @(
 function Confirm-Install($installName, $packages) {
     $caption = "Select a $installName"
     $message = "What do you want to install?"
-    $choices = [System.Management.Automation.Host.ChoiceDescription[]](new-Object System.Management.Automation.Host.ChoiceDescription "&None","none");
+    $choices = [System.Management.Automation.Host.ChoiceDescription[]](new-Object System.Management.Automation.Host.ChoiceDescription "&Skip","skip");
 
     Foreach ($p in $packages)
     {
@@ -33,7 +33,7 @@ function Confirm-Install($installName, $packages) {
 Confirm-Install "Internet Browser" @("googlechrome","firefox","opera")
 Confirm-Install "Text editor" @("notepadplusplus.install","vscode")
 
-$installCmd = "`"" + ($installPackages -join "`",`"") + "`""
+$installCmd = "'" + ($installPackages -join "','") + "'"
 
 #download boxstarter
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://boxstarter.org/bootstrapper.ps1'))
