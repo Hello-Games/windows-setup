@@ -33,7 +33,7 @@ function Confirm-Install($installName, $packages) {
 Confirm-Install "Internet Browser" @("googlechrome","firefox","opera")
 Confirm-Install "Text editor" @("notepadplusplus.install","vscode")
 
-$installCmd = "'" + ($installPackages -join "','") + "'"
+$installCmd = '"' + ($installPackages -join '","') + '"'
 
 #download boxstarter
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://boxstarter.org/bootstrapper.ps1'))
