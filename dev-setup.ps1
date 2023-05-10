@@ -5,11 +5,12 @@ $installPackages = @(
     'dotnetfx'
     'dotnet-6.0-desktopruntime'
     'dotnet-7.0-desktopruntime'
-    '7zip.install'
+    '7zip'
     'everything'
     'tortoisesvn'
     'slack'
     'steam'
+    'zoom'
 )
 
 function Confirm-Install($installName, $packages) {
@@ -31,7 +32,9 @@ function Confirm-Install($installName, $packages) {
 }
     
 Confirm-Install "Internet Browser" @("googlechrome","firefox","opera")
-Confirm-Install "Text editor" @("notepadplusplus.install","vscode")
+Confirm-Install "Text Editor" @("notepadplusplus","vscode")
+Confirm-Install "Video Player" @("vlc","mpc-hc-clsid2")
+Confirm-Install "Working from home? VPN" @("pritunl-client")
 
 #download boxstarter
 Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://boxstarter.org/bootstrapper.ps1'))
@@ -48,6 +51,11 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name NavPaneShowAllFolders -Value 1
 #opens PC to This PC, not quick access
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Value 1
+# Set current network to private
+Set-NetConnectionProfile -NetworkCategory Private
+# Disable Fast boot
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Type DWord -Value 0
+
 Enable-RemoteDesktop
 
 #install this outside boxstarter since it doesn't handle the vs packages
