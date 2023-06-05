@@ -41,7 +41,7 @@ Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://box
 Get-Boxstarter -force
 
 #--- Windows Features ---
-# Show hidden files, Show protected OS files, Show file extensions
+# Show file extensions
 Set-WindowsExplorerOptions -EnableShowFileExtensions
 #--- File Explorer Settings ---
 # will expand explorer to the actual folder you're in
@@ -53,6 +53,6 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 Enable-RemoteDesktop
 
 #install this outside boxstarter since it doesn't handle the vs packages
-choco install visualstudio2022professional --package-parameters "--add Microsoft.VisualStudio.Workload.NativeDesktop Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core Microsoft.VisualStudio.Component.Windows10SDK.19041 Microsoft.VisualStudio.Component.VC.v141.x86.x64 Microsoft.VisualStudio.Component.VC.Tools.x86.x64 Microsoft.VisualStudio.Component.VC.Llvm.Clang Microsoft.VisualStudio.Component.VC.Llvm.ClangToolset Microsoft.VisualStudio.Component.VC.ASAN"
+choco install visualstudio2022professional -y --package-parameters "--add Microsoft.VisualStudio.Workload.NativeDesktop Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core Microsoft.VisualStudio.Component.Windows10SDK.19041 Microsoft.VisualStudio.Component.VC.v141.x86.x64 Microsoft.VisualStudio.Component.VC.Tools.x86.x64 Microsoft.VisualStudio.Component.VC.Llvm.Clang Microsoft.VisualStudio.Component.VC.Llvm.ClangToolset Microsoft.VisualStudio.Component.VC.ASAN"
 
 Install-BoxstarterPackage -PackageName $installCmd
