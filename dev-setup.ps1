@@ -59,7 +59,14 @@ Set-NetConnectionProfile -NetworkCategory Private
 # Disable Fast boot
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Type DWord -Value 0
 
-Enable-RemoteDesktop -ErrorAction SilentlyContinue
+Try
+{
+    Enable-RemoteDesktop -ErrorAction SilentlyContinue
+}
+Catch
+{
+    Write-Host "Remote Desktop failed to turn on"
+}
 
 #install this outside boxstarter since it doesn't handle the vs packages
 choco install visualstudio2022professional -y --package-parameters "--add Microsoft.VisualStudio.Workload.NativeDesktop Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core Microsoft.VisualStudio.Component.Windows10SDK.19041 Microsoft.VisualStudio.Component.VC.v141.x86.x64 Microsoft.VisualStudio.Component.VC.Tools.x86.x64 Microsoft.VisualStudio.Component.VC.Llvm.Clang Microsoft.VisualStudio.Component.VC.Llvm.ClangToolset Microsoft.VisualStudio.Component.VC.ASAN"
