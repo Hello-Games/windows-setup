@@ -3,7 +3,6 @@ $installPackages = @(
     'vcredist2013'
     'vcredist2012'
     'dotnetfx'
-    'dotnet3.5'
     'dotnet-6.0-desktopruntime'
     'dotnet-7.0-desktopruntime'
     'tortoisesvn'
