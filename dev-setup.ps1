@@ -32,9 +32,14 @@ function Confirm-Install($installName, $packages) {
     $answer = $host.ui.PromptForChoice($caption,$message,$choices,0)
 
     if($answer -gt 0)
-    {
-        Write-Output $choices[$answer].HelpMessage
-        $global:installPackages += $choices[$answer].HelpMessage
+    {   
+        $splitString = $choices[$answer].HelpMessage -split '\s+'
+
+        foreach ($entry in $splitString)
+        {        
+            Write-Output $entry    
+            $global:installPackages += $entry
+        }
     }
 }
     
