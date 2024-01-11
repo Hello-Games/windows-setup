@@ -43,7 +43,7 @@ function Confirm-Install($installName, $packages) {
 }
     
 Confirm-Install "Internet Browser" @("googlechrome","firefox","opera")
-Confirm-Install "Text Editor" @("notepadplusplus","vscode")
+Confirm-Install "Text Editor" @("notepadplusplus","vscode","sublimetext4")
 Confirm-Install "Video Player" @("vlc","mpc-hc-clsid2")
 Confirm-Install "Essentials" @("everything slack steam 7zip zoom windirstat")
 Confirm-Install "Working from home? VPN" @("pritunl-client wireguard")
