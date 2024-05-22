@@ -12,6 +12,7 @@ $vsComponents = @(
     'Microsoft.VisualStudio.Workload.NativeDesktop'
     'Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core'
     'Microsoft.VisualStudio.Component.Windows10SDK.19041'
+    'Microsoft.VisualStudio.Component.Windows11SDK.22621'
     'Microsoft.VisualStudio.Component.VC.v141.x86.x64'
     'Microsoft.VisualStudio.Component.VC.Tools.x86.x64'
     'Microsoft.VisualStudio.Component.VC.Llvm.Clang'
