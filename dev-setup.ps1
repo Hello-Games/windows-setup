@@ -1,11 +1,11 @@
 $installPackages = @(
+    'tortoisesvn'
     'vcredist140'
     'vcredist2013'
     'vcredist2012'
     'dotnetfx'
     'dotnet-6.0-desktopruntime'
     'dotnet-7.0-desktopruntime'
-    'tortoisesvn'
 )
 
 $vsComponents = @(
@@ -84,10 +84,10 @@ Catch
 
 #install this outside boxstarter since it doesn't handle the vs packages
 $vsInstallerArgs = "--add " + ($vsComponents -join " --add ")
-
-choco install visualstudio2022professional -y --params $vsInstallerArgs
  
 Foreach ($p in $installPackages)
 {
     choco install $p -y
 }
+
+choco install visualstudio2022professional -y --params $vsInstallerArgs
