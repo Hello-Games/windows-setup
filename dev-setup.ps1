@@ -6,6 +6,7 @@ $installPackages = @(
     'dotnetfx'
     'dotnet-6.0-desktopruntime'
     'dotnet-7.0-desktopruntime'
+    'dotnet-8.0-desktopruntime'
 )
 
 $vsComponents = @(
