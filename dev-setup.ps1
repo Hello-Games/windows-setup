@@ -66,24 +66,9 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 #opens PC to This PC, not quick access
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Value 1
 
-# Ensure registry paths exist before setting properties
-New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Force -ErrorAction SilentlyContinue | Out-Null
-New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\AccountManagement" -Force -ErrorAction SilentlyContinue | Out-Null
-New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\lanmanserver\parameters" -Force -ErrorAction SilentlyContinue | Out-Null
-New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\lanmanworkstation\parameters" -Force -ErrorAction SilentlyContinue | Out-Null
 # Enable anonymous user permissions and disable SMB security restrictions
-Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters -Name AllowInsecureGuestAuth -Value 1
-Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\Lsa -Name EveryoneIncludesAnonymous -Type DWord -Value 1
-Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\Lsa -Name RestrictAnonymous -Type DWord -Value 0
-# Enable guest account in policies
-Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\AccountManagement -Name AccountsGuest -Value "1"
-# Disable SMB signing requirements for compatibility
-Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\lanmanserver\parameters -Name RequireSecuritySignature -Type DWord -Value 0
-Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\lanmanworkstation\parameters -Name RequireSecuritySignature -Type DWord -Value 0
-Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\lanmanserver\parameters -Name EnableSecuritySignature -Type DWord -Value 0
-Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\lanmanworkstation\parameters -Name EnableSecuritySignature -Type DWord -Value 0
-# Enable guest account
-Try { net user guest /active:yes 2>$null } Catch { Write-Host "Guest account activation failed" }
+Set-SmbClientConfiguration -EnableInsecureGuestLogons $true -Force
+Set-SmbClientConfiguration -RequireSecuritySignature $false -Force
 
 #restrict windows update p2p to local net only
 #Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization -Name SystemSettingsDownloadMode -Type DWord -Value 3
